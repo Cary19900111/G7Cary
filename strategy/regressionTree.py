@@ -1,5 +1,5 @@
 class Node(object):
-    def __init__(self,score=None)
+    def __init__(self,score=None):
         self.score = score
         self.left = None
         self.right = None
@@ -52,6 +52,7 @@ class Tree(object):
             else:
                 idx_split[1].append(i)
         return feature,split,split_avg,idx_split
+
     def _get_rule(self):
         que = [[self.root,[]]]
         self.rules = []
@@ -64,7 +65,7 @@ class Tree(object):
                 rule_left = copy(exprs)
                 rule_left.append([nd.feature,-1,nd.split])
                 que.append([nd.left,rule_left])
-             if nd.right:
+            if nd.right:
                 rule_right = copy(exprs)
                 rule_right.append([nd.feature,-1,nd.split])
                 que.append([nd.right,rule_right])
@@ -73,9 +74,24 @@ class Tree(object):
         feature,op,split = expr
         op = ">=" if op==1 else "<"
         return "Feature %d %s %.4f" % (feature,op,split)
-
-
-if __name__=='__main__':
-
-            
+    
+    def fit(self,x,y,max_depth=5,min_samples_split=2):
+        self.root=Node()
+        que = [[0,self.root,list(range(len(y)))]]
+        while que:
+            depth,nd,idx = que.pop(0)
+            if depth == max_depth:
+                break
+            if len(idx)<min_samples_split or set(map(lambda i :y[i],idx))==1:
+                continue
+            feature_rets = self._choose_feature(x,y,idx)
+            if feature_rets is None:
+                continue
+            nd.feature,nd.split,split_avg,idx_split = feature_rets
+            nd.left = split_avg[0]
+            nd.right = split_avg[1]
+            que.append([depth+1,nd.left,idx_split[0]])
+            que.append([depth+1,nd.right,idx_split[1]])
+            self.height=depth
+            self._get_rule()
 
