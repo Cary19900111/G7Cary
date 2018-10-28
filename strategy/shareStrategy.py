@@ -2,6 +2,23 @@ import os,time,datetime
 import numpy as np 
 import pandas as pd
 import tushare as ts
+def abruptLargeShrinkage(code):
+    try:
+        obj = ts.get_hist_data(code,retry_count=1).head(4)
+        print(obj)
+        today_change = obj["p_change"][0]
+        if(today_change>11.00):
+            return None
+        volume_list = obj["volume"]
+        today_open = obj["open"][0]
+        today_close = obj["close"][0]
+        today_volume = volume_list[0]
+        pre_volume=volume_list[1]
+        if(today_close<today_open and today_volume<0.8*pre_volume and today_change>-8.0):
+            return code
+        return None 
+    except Exception as err:
+        print(code+"has error:"+str(err))
 def get_today_str():
     '''获取今天年月日的日期'''
     day_str = time.strftime('%Y-%m-%d',time.localtime())
@@ -21,8 +38,6 @@ def share_stop(share_data):
 def less_volume_and_down(stock_code):
     try:
         obj = ts.get_hist_data(code=stock_code,retry_count=1).head(4)
-        if share_stop(obj):
-            return None
         volume_list = obj["volume"]
         volume_pre = 0
         volume_current = 0
@@ -38,3 +53,6 @@ def less_volume_and_down(stock_code):
         return stock_code
     except Exception as err:
         print(stock_code+"has error:"+str(err))
+if __name__=="__main__":
+    abruptLargeShrinkage("603398")
+

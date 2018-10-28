@@ -1,3 +1,7 @@
+import os
+import numpy as np 
+import pandas as pd
+import tushare as ts
 class Node(object):
     def __init__(self,score=None):
         self.score = score
@@ -38,8 +42,8 @@ class Tree(object):
         return mse,feature,split
 
     def _choose_feature(self,x,y,idx):
-        len = len(x[0])
-        split_rets = [z for z in map(lambda z:self._choose_split_point(x,y,idx,z),range(len)) if z is not None]
+        m = len(x[0])
+        split_rets = [z for z in map(lambda z:self._choose_split_point(x,y,idx,z),range(m)) if z is not None]
         if split_rets==[]:
             return None
         _,feature,split,split_avg = min(split_rets,key=lambda x :x[0])
@@ -94,4 +98,15 @@ class Tree(object):
             que.append([depth+1,nd.right,idx_split[1]])
             self.height=depth
             self._get_rule()
+
+if __name__=='__main__':
+    persons = pd.DataFrame(
+        data=[['熊大',21,4,12000],
+        ['车老二',25,5,15000],
+        ['张三',23,6,20000],
+        ['李四',28,8,35000]],
+        columns=['name','age','grade','salary']
+    )
+    t = Tree()
+    t._choose_feature(persons,persons['salary'],4)
 

@@ -1,9 +1,10 @@
-import controller.getShareList as getShareList
+import controller.ShareController as Share
 import strategy.regressionTree as regressionTree
 import os
 import numpy as np 
 import pandas as pd
-
+import tushare as ts
+#151  je520
 
 def init_dataframe():
     ridership_df = pd.DataFrame(
@@ -32,8 +33,14 @@ def init_person():
     )
     return persons
 if __name__=='__main__':
-    data = init_person()
-    tree = regressionTree.Tree()
-    tree.fit(data,data[0])
+    stock = "603398"
+    df = ts.get_realtime_quotes(stock)
+    print(df)
+    #Share.get_less_volume_with_down()
+    # a = ts.get_cpi()
+    # print(a)
+    # data = init_person()
+    # tree = regressionTree.Tree()
+    # tree.fit(data,data[0])
     
     
