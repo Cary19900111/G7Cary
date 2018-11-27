@@ -98,6 +98,18 @@ class Tree(object):
             literals, score = rule
             print("Rule %d: " % i, ' | '.join(literals) + ' => split_hat %.4f' % score)
     
+    def _predict(self,row):
+        nd = self.root
+        while nd.left and nd.right:
+            if(row[nd.feature])<nd.split:
+                nd = nd.left
+            else:
+                nd = nd.right
+        return nd.score
+    
+    def predict(self,pd):
+        return [self._predict(pd.iloc[idr]) for idr in range(len(pd))]
+    
     def fit(self,x,y,max_depth=5,min_samples_split=2):
         self.root = Node()
         que = [[0, self.root, x.index.tolist()]] 
@@ -118,6 +130,17 @@ class Tree(object):
             self.height = depth
         self._get_rule()
 
+
+def fit_r2(true_data_pd,predict_data):
+    true_mean = true_data_pd.mean()
+    true_data_list = list(true_data_pd)
+    predict_sum = 0
+    mean_sum = 0
+    for i in range(len(predict_data)):
+        predict_sum+=(predict_data[i]-true_data_list[i])**2
+        mean_sum += (true_data_list[i]-true_mean)**2
+    r2 = 1-predict_sum/mean_sum
+    return r2
 if __name__=='__main__':
     persons = pd.DataFrame(
         data=[['熊大',21,4,12000],
@@ -134,11 +157,15 @@ if __name__=='__main__':
         ['zcxxzc',28,8,40000]],
         columns=['name','age','grade','salary']
     )
-    #person_list = persons.values
-    #print(a)
-    #print(persons)
+    # #person_list = persons.values
+    # #print(a)
+    # #print(persons)
     t = Tree()
     data = persons.loc[:,["salary","age","grade"]]
-    # x列表，y要预测的列，idx行索引
+    # # # x列表，y要预测的列，idx行索引
     t.fit(data.loc[:,["age","grade"]],data["salary"])#,persons.index.tolist())
-    t.print_rules()
+    predict_result = t.predict(persons)
+    r2 = fit_r2(persons["salary"],predict_result)
+    print(r2)
+    #fit_r2(persons["salary"],result)
+    # t.print_rules()
