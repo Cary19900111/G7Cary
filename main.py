@@ -1,5 +1,7 @@
-import controller.ShareController as Share
-import strategy.regressionTree as regressionTree
+# -*- coding: UTF-8 -*-
+
+# import controller.ShareController as Share
+# import strategy.regressionTree as regressionTree
 import os
 import numpy as np 
 import pandas as pd
@@ -27,16 +29,6 @@ def init_dataframe():
     )
     return ridership_df
 
-
-def init_person():
-    persons = pd.DataFrame(
-        data=[['熊大',21,4,12000],
-        ['车老二',25,5,15000],
-        ['张三',23,6,20000],
-        ['李四',28,8,35000]],
-        columns=['name','age','grade','salary']
-    )
-    return persons
 
 
 def test():
@@ -71,8 +63,27 @@ def min_key():
     c = [-0.5,-0.1,2,2,3,4,5]
     a = min(c,key = lambda x :abs(x))
     print(a)
+
+class desc:
+    def __init__(self,name="desc"):
+        self.name = name
+    # def __set__(self,instance,name):
+    #     print("set")
+    #     self.name = name
+    def __get__(self,instance,cls):
+        print("get")
+        return self.name+"get come on "
+
+class Base:
+    desc=desc()
+    def __init__(self,desc):
+        #self.desc = desc
+        self.name = desc
 if __name__ == '__main__':
-    min_key()
+    b = Base("Base")
+    print(b.__dict__)
+    print(b.desc)
+    bc = Base
     # df = ts.xsg_data(year=2020)
     # print(df)
 
@@ -102,11 +113,6 @@ if __name__ == '__main__':
     # print(type(df.loc[code1, 'esp']))#floate
     # print(type(df.loc[code1, 'bvps']))#float
     # print(type(df.loc[code1, 'pb']))#float
-    # print(type(df.loc[code1, 'timeToMarket']))#int
-    # print(df.loc[code1, 'timeToMarket'])
-
-
-    # code,代码
     #            name,名称
     #            industry,细分行业
     #            area,地区
