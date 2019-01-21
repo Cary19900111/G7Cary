@@ -1,7 +1,7 @@
 
-import os
-import numpy as np 
-import pandas as pd
+# import os
+# import numpy as np 
+# import pandas as pd
 def init_dataframe():
     ridership_df = pd.DataFrame(
     data=[[   0,    0,    2,    5,    0],
@@ -64,7 +64,25 @@ class adapter(object):
     def __getattr__(self, name):
         return getattr(self.adaptee, name)
 
+class CRException(Exception):
+    pass
+    
+def Cassis(str_in,offset):
+    import string
+    if offset<0 or offset >25:
+        raise CRException("offset hava to be 1-25")
+    str_out = ""
+    str_lower = str_in.lower()
+    str_list = list(str_lower)
+    for str in str_list:
+        if ord(str)<97 or ord(str)>122:
+            str_out = str_out+str
+        elif ord(str)<123-offset:
+            str_out = str_out+ chr(ord(str)+offset)
+        else:
+            str_out = str_out +chr(ord(str)-26+offset)
+    return str_out
+
 if __name__ == '__main__':
-    a = adapter()
-    a.foo()
-    a.bar()
+    str_in = "map"
+    print(Cassis(str_in,2))
