@@ -97,5 +97,8 @@ def find_rare_str(str_in):
         if v ==min_count:
             str_result = str_result+k
     print(str_result)
+
+def test():
+    pass
 if __name__ == '__main__':
     find_rare_str()
