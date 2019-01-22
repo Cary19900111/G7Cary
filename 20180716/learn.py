@@ -83,6 +83,19 @@ def Cassis(str_in,offset):
             str_out = str_out +chr(ord(str)-26+offset)
     return str_out
 
+def find_rare_str(str_in):
+    # print(str_in)
+    str_count = {}
+    for char in str_in:
+        if char not in str_count: 
+            str_count[char]=1
+        else:
+            str_count[char] = str_count[char]+1
+    min_count  = str_count[min(str_count,key=str_count.get)]
+    str_result = ""
+    for k,v in str_count.items():
+        if v ==min_count:
+            str_result = str_result+k
+    print(str_result)
 if __name__ == '__main__':
-    str_in = "map"
-    print(Cassis(str_in,2))
+    find_rare_str()
