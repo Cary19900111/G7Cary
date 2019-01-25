@@ -98,7 +98,32 @@ def find_rare_str(str_in):
             str_result = str_result+k
     print(str_result)
 
+def find_letter_in_three_upper_letter(str_in):
+    import re
+    pattern = re.compile("[^A-Z][A-Z]{3}([a-z])[A-Z]{3}[^A-Z]")
+    result = pattern.findall(str_in)
+    print("".join(result))
+
+def visit_page_continue(noth):
+    import urllib.request
+    from bs4 import BeautifulSoup
+    flag = True
+    nothing = noth
+    while(flag):
+        try:
+            url = "http://www.pythonchallenge.com/pc/def/linkedlist.php?nothing={}".format(nothing)
+            responce = urllib.request.urlopen(url)
+            html = responce.read().decode('utf-8')
+            print(html)
+            nothing = html.split(" ").pop()
+            if not nothing.isdigit():
+                print("Success")
+                flag = False
+
+        except Exception as err:
+            print(err)
+            flag = False
 def test():
     pass
 if __name__ == '__main__':
-    find_rare_str()
+    visit_page_continue("12345")
