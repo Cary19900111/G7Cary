@@ -8,6 +8,7 @@ import pandas as pd
 import tushare as ts
 import pymysql
 from datetime import datetime
+import time
 # 151  je520
 
 
@@ -79,11 +80,74 @@ class Base:
     def __init__(self,desc):
         #self.desc = desc
         self.name = desc
+
+def asyncDaily():
+    import os,requests,asyncio
+    pid=os.popen("lsof -i -n -P|grep 8000|awk '{print $2}'").read()
+    if(pid):
+        text = os.popen('kill -9 {0}'.format(int(pid)))
+        print(text)
+    os.system("mysql.server start")
+    # f = os.popen("lsof -i:8000")
+    # out = f.read()
+    # print(out)
+    os.system("python3 /Users/cary/Documents/python/g7/G7Cary/mysite/manage.py runserver &")
+    time.sleep(3)
+    # r = requests.get("http://127.0.0.1:8000/polls/learn")
+    r_daily = requests.get("http://127.0.0.1:8000/polls/daily")
+    # print(r.text)
+
+def province_total():
+    import requests
+    from bs4 import BeautifulSoup
+    r = requests.get("http://www.mca.gov.cn/article/sj/xzqh/2019/201901-06/201902061009.html")
+    soup = BeautifulSoup(r.text)
+    tag2 = soup.find_all('tr',{'height':"19"})
+    print(len(tag2))
+
+def jsonVsPack():
+
+    import json,msgpack,sys,time
+
+    a = {'name':'yzy','age':26,'gender':'male','location':'Shenzhen'}
+
+    begin_json = time.clock()
+    for i in range(10000):
+        in_json = json.dumps(a)
+        un_json = json.loads(in_json)
+    end_json = time.clock()
+    print('Json serialization time: %.05f seconds' %(end_json-begin_json))
+    print (type(in_json),'content:  ',in_json,'size: ',sys.getsizeof(in_json))
+    print (type(un_json),'content:  ',un_json,'size: ',sys.getsizeof(un_json))
+    print(un_json['name'])
+
+    begin_msg = time.clock()
+    for i in range(10000):
+        in_msg = msgpack.packb(a)
+        un_msg = msgpack.unpackb(in_msg)
+    """
+    # alias for compatibility to simplejson/marshal/pickle.
+    load = unpack
+    loads = unpackb
+
+    dump = pack
+    dumps = packb
+    """
+    # in_msg1 = msgpack.dumps(a)
+    # un_msg1 = msgpack.loads(in_msg)
+    end_msg = time.clock()
+    print('Msgpack serialization time: %.05f seconds' %(end_msg-begin_msg))
+
+    print(type(in_msg),'content:  ',in_msg,'size: ',sys.getsizeof(in_msg))
+    print(type(un_msg),'content:  ',un_msg,'size: ',sys.getsizeof(un_msg))
+    print(un_msg['name'])
 if __name__ == '__main__':
-    b = Base("Base")
-    print(b.__dict__)
-    print(b.desc)
-    bc = Base
+    jsonVsPack()
+    # asyncDaily()
+    # b = Base("Base")
+    # print(b.__dict__)
+    # print(b.desc)
+    # bc = Base
     # df = ts.xsg_data(year=2020)
     # print(df)
 
