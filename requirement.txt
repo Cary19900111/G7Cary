@@ -1,0 +1,10 @@
+Package        Version
+-------------- -------
+beautifulsoup4 4.7.1  
+Django         2.1.5  
+Pillow         5.4.1  
+pip            18.1   
+pytz           2018.9 
+setuptools     40.6.3 
+soupsieve      1.7.3  
+wheel          0.32.3 
