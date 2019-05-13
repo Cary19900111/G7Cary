@@ -6,3 +6,4 @@ pytz           2018.9
 setuptools     40.6.3 
 soupsieve      1.7.3  
 wheel          0.32.3 
+requests   2.21.0
