@@ -1,45 +1,85 @@
 Discover Financial Services，I
 越南西贡商业银行
 BC卡公司
+交通银行香港分行
 新加坡星网电子付款私人有限公司
+中国银行(马来西亚)
 Royal Bank Open Stock Company
 中银通商务支付有限公司
+工银河内
+中国工商银行布鲁塞尔分行
 Credit Saison
 Commercial Bank of Dubai
+中国工商银行新加坡分行
 Russian Standard Bank
+中国工商银行法兰克福分行
 Woori Card Co.,Ltd
+中国工商银行澳门分行
 澳门通股份有限公司
 The Mauritius Commercial Bank
-宝鸡商行
+中国工商银行米兰分行
+中国工商银行马德里分行
+中国工商银行加拿大分行
+中国工商银行阿拉木图子行
+中国银行（香港）
+中国银行澳门分行
+中行宁波分行
+中国银行(香港)
 丝绸之路银行
 蒙古郭勒姆特银行
 DBS Bank Ltd
 华侨永亨银行（中国）
+中国建设银行股份有限公司总行亚洲股份有限公司
 (香港地区)创兴银行有限公司 有限公司
+韩亚银行（中国）
 南洋商业银行（中国）
+中行日本分行
 可汗银行
+中行菲律宾分行
 CSC
+中国工商银行(印尼)
 法国兴业银行（中国）
+中行印尼分行
+中国银行首尔分行
 Baiduri Bank Berhad
 俄罗斯远东商业银行
 澳门BDA
+中行悉尼
 越南Vietcombank
+招商银行香港分行
+中国工商银行巴黎分行
 大华银行（中国）
+中国银行曼谷分行
+交通银行澳门分行
 乌兹别克斯坦INFINBANK
 BCEL
+工银泰国
+中国工商银行卢森堡分行
+中国工商银行阿姆斯特丹
 东亚银行澳门分行
+中国工商银行（巴西）
+中国工商银行金边分行
+中国工商银行万象分行
 香港上海汇丰银行有限公司
 PT Bank Sinarmas,Tbk
-中国建设银行亚洲股份有限公司
+中国工商银行卡拉奇分行
 OJSCBASIAALLIANCEBANK
 Mongolia Trade Develop. Bank
 巴基斯坦FAYSAL BANK
+中国银行金边分行
 企业银行（中国）
 Krung Thaj Bank Public Co. Ltd
 巴基斯坦HabibBank
 Capital Bank of Mongolia
+中国工商银行印尼分行
+工行东京分行
+中国工商银行伦敦子行
+中国工商银行（澳门）
+工行首尔
 渣打银行（香港）
 星展银行香港有限公司
+中国工商银行（印度尼西亚）
+工银马来西亚
 Phongsavanh Bank Limited
 日本三菱信用卡公司
 Travelex Japan KK
@@ -47,22 +87,29 @@ Allied Bank
 The Bancorp Bank
 NXSystems Limited
 Peoples Trust Compay
+东亚银行(中国)有限公司
+中国银行香港有限公司
 Bangkok Bank Pcl
 东亚银行有限公司
 T.GARANTI BANKASI A.S.
 新加坡大华银行
 澳门国际银行
 Golomt bank of Monglia
-中国银行澳门分行
+中信银行（国际）
 渣打银行香港有限公司
 AEON信贷财务亚洲有限公司
 哈萨克斯坦国民储蓄银行
 渣打银行(中国)
+建行亚洲
+中银信用卡(国际)有限公司
 华侨永亨银行股份有限公司
+中行新加坡分行
 日本三井住友卡公司
+东亚银行中国有限公司
 渣打银行中国有限公司
 汇丰银(中国)有限公司
 新韩卡公司
+工银新西兰
 云浮新兴东盈民生村镇银行
 Rawbank S.a.r.l
 PVB Card Corporation
@@ -75,7 +122,6 @@ CRDB BANK PLC
 NongHyup Bank
 Davr Bank
 Kyrgyz Investment Credit Bank
-中信银行（国际）
 State Bank of Mauritius
 Cambodia Mekong Bank PL
 K & R International Limited
@@ -83,7 +129,6 @@ JSC ATFBank
 OJSC Russian Investment Bank
 International BankofAzerbaijan
 JSC Liberty Bank
-中国建设银行澳门分行
 CJSC “Spitamen Bank”
 State bank
 Bangkok Bank Public Company Li
@@ -111,6 +156,7 @@ FIDELITY BANK GHANA LIMITED
 MCB Islamic Bank Limited
 Askari Bank Limited
 Dubai lslamic Bank Pakistan
+Summit Bank Ltd
 Credit Ural Bank Joint Stock
 international crads company
 XacBank
@@ -158,12 +204,10 @@ PUBLIC BANK BERHAD
 PROVIDUSBANK PLC
 Co-Operative Bank Limited
 Himalayan Bank Limited
-怀仁县惠融村镇银行
 玉山银行（中国）
 PT BANK SINARMAS TBK
 Cim Finance Ltd
 ICBC(USA) NA
-建行亚洲
 OSJC MTS Bank
 Banque Pour Le Commerce
 Global Bank of Commerce Ltd
@@ -187,20 +231,28 @@ UNITED BANK FOR AFRICA
 HKT Payment Limited
 UNITED AMARA BANK
 OJSC BANK ESKHATA
-中银信用卡(国际)有限公司
 PrimeCredit
 33 Financial Services Limited
 ACLEDA Bank Plc.
 Global Treasure Bank
 BPS-Sberbank
 菲律宾RCBC
-中国工商银行（澳门）
-交通银行香港分行
 菲律宾BDO
 花旗中国
 汇丰银行（中国）
+工行米兰
 Bank of China(Malaysia)
 Kasikorn Bank PCL
+工行马来西亚
+工行河内
+工行伦敦
+工行阿姆斯特丹
+工行阿拉木图
+工行布鲁塞尔
+工行加拿大
+工银印尼
+工银法兰克福
+工行马德里
 AmBank(M)Berhad
 Bank Of China Australia
 AI-Hail ORIX Finance PSC
@@ -264,7 +316,6 @@ Transport and Development Bank
 Telenor Micro Finance Bank
 Far Eastern Bank
 NRSP Microfinance Bank
-Summit Bank Ltd
 Summit Bank Limited
 Mutual Trust Bank Limited
 Non-banking credit
@@ -285,4 +336,3 @@ FBNBank DRC SA
 Al Tail Money Transfer
 BC CARD MEMBER BANK
 中银通支付
-珠海华润银行股份有限公司
