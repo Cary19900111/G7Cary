@@ -24,11 +24,11 @@ class schedule(object):
             print("crlen:"+str(self.ready.qsize()))
             task = self.ready.get(block=False)
             try:
-                task.run()#第一次是发送的None，到达yield
+                task.run()
             except Exception as err:
                 self.exit(task.id)
                 continue
-            self.ready.put(task)
+            self.ready.put(task,block=False)
 def Laundry():
     for i in range(5):
         yield i

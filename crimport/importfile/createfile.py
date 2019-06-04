@@ -1,0 +1,1 @@
+fs = open("sssss",'w')
