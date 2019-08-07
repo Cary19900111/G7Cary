@@ -8,7 +8,9 @@ urlpatterns = [
     path('banshare', views.banshare, name='banshare'),
     path('history', views.history, name='history'),
     path('daily', views.daily, name='daily'),
+    path('getDataByDay/<str:daytime>',views.GetDataByDay,name='getDataByDay'),
     path('volslowdown', views.volumndowngreen, name='volumndowngreen'),
     path('volumerisered', views.volumerisered, name='volumerisered'),
+    path('volriseonbottom', views.volRiseOnBottom, name='volRiseOnBottom'),
     path('volhalf', views.volumnhalf, name='volumnhalf')
 ]

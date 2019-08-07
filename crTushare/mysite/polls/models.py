@@ -39,6 +39,7 @@ class stock_basic(models.Model):
         pb=models.FloatField(default=None)
         timeToMarket=models.IntegerField(default=None)
 
+
 class stock_daily(models.Model):
         '''
         date,日期
@@ -65,3 +66,4 @@ class stock_daily(models.Model):
         class Meta:
                 unique_together = ["date", "code"]
                 index_together = ["date", "code"]
+ 

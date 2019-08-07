@@ -104,6 +104,34 @@ def history(request):
     #     changepercent =df.loc[date, 'p_change']
     #     print(open)
 
+def GetDataByDay(request,daytime):
+    print("CR:"+daytime)
+    basic_info  = stock_basic.objects.all()
+    for stock in basic_info:
+        try:
+            code1 =stock.code
+            name1 = stock.name
+            df = ts.get_hist_data(code1,start=daytime,end=daytime)
+            print("df:")
+            print(df)
+            date_list = df.index.tolist()
+            for date1 in date_list:
+                try:
+                    open1 = df.loc[date1, 'open']
+                    close1 = df.loc[date1, 'close']
+                    low1 = df.loc[date1, 'low']
+                    high1 = df.loc[date1, 'high']
+                    volume1 =df.loc[date1, 'volume']
+                    changepercent1 =df.loc[date1, 'p_change']
+                    q = stock_daily(date=date1, code=code1, name=name1, open=open1,
+                    close=close1, low=low1, high=high1, volume= volume1,changepercent= changepercent1)
+                    q.save()
+                except Exception as err:
+                    print(code1)
+        except Exception as err:
+            print(stock.code)
+    return HttpResponse("day sync data Finish!")
+
 def daily(request):
     date_today = datetime.now().strftime('%Y-%m-%d')
     df = ts.get_today_all()
@@ -137,6 +165,7 @@ def banshare(request):
     return HttpResponse("banshare")
 
 def volumndowngreen(request):
+    '''阴跌缩量'''
     stock_list = []
     code_list = stock_daily.objects.values("code").distinct()
     #code_list = [{'code':'300584'},{'code':'002681'},{'code':'002897'},{'code':'300731'}]
@@ -168,6 +197,7 @@ def volumndowngreen(request):
     return HttpResponse('volumndowngreen:'+",".join(result))
 
 def volumnhalf(request):
+    '''突然缩量一半'''
     stock_list = []
     code_list = stock_daily.objects.values("code").distinct()
     date_today = datetime.now().strftime('%Y-%m-%d')
@@ -199,6 +229,7 @@ def volumnhalf(request):
     return HttpResponse('volumnhalf:'+",".join(result))
 
 def volumerisered(request):
+    '''放小量上涨'''
     stock_list = []
     code_list = stock_daily.objects.values("code").distinct()
     date_today = datetime.now().strftime('%Y-%m-%d')
@@ -228,6 +259,34 @@ def volumerisered(request):
     print(result)
     return HttpResponse('volumerisered:'+",".join(result))
 
+def volRiseOnBottom(request):
+    '''底部放量'''
+    stock_list = []
+    code_list = stock_daily.objects.values("code").distinct()
+    # code_list = [{'code':'300584'},{'code':'002681'},{'code':'002897'},{'code':'300731'}]
+    date_today = datetime.now().strftime('%Y-%m-%d')
+    for code_dic in code_list:
+        code1 = code_dic['code']
+        code1_daily_datas = stock_daily.objects.filter(code=code1).order_by("date").reverse()[:3].values()
+        data_list = list(code1_daily_datas)
+        print(data_list)
+        if(len(data_list) < 3 or data_list[0]['volume'] == 0):
+            continue
+        yesterday_close = code1_daily_datas[1]['close']
+        beforeyesterday_close = code1_daily_datas[2]['close']
+        # today_close = code1_daily_datas[2]['close']
+        today_vol = code1_daily_datas[0]['volume']
+        yesterday_vol = code1_daily_datas[1]['volume']
+        beforeyesterday_vol = code1_daily_datas[2]['volume']
+        if(yesterday_close<beforeyesterday_close and yesterday_vol<beforeyesterday_vol and today_vol>beforeyesterday_vol):
+            stock_list.append(code1)
+    result_pd = stock_basic.objects.filter(code__in=stock_list).filter(pe__gt=0).filter(pe__lt=20).values()#找市盈率>0的
+    result_list = list(result_pd)
+    result = []
+    for result_data in result_list:
+        result.append(result_data['code'])
+    return HttpResponse('根据三天的底部放量:'+",".join(result))
+
 def realtime(request,code):
     code_list = code.split(',')
     index_change = ts.get_index().loc[0,"change"]
@@ -255,7 +314,23 @@ def realtime(request,code):
     return HttpResponse(str)
 
 def learn(request):
-    df_index = ts.get_index()
-    print(df_index)
-    resp = {"code":"2803004019","detail":"in uni"}
-    return HttpResponse(json.dumps(resp))
+    # id = request.GET.get("id")
+    # df_index = ts.get_index()
+    # print(df_index)
+    # resp = {"code":"2803004019","detail":"in uni"}
+    # return HttpResponse(json.dumps(resp))
+    # ts.get_hist_data('600123')
+    id  = GetId(request)
+    name = GetName(request)
+    return HttpResponse("获得数据 %s:%s"%(id,name))
+
+
+def GetId(request):
+    code1= "600123"
+    code1_daily_datas = stock_daily.objects.filter(code=code1).order_by("date").reverse()[:2].values()
+    data_list = list(code1_daily_datas)
+    volume_today = data_list[0]['volume']
+    return volume_today
+
+def GetName(request):
+    return "cary"
