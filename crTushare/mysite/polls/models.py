@@ -1,7 +1,9 @@
 from django.db import models
 
 # Create your models here.
-
+#python manage.py startapp my_app最好用命令来创建app（app中创建migrations文件夹）
+#python manage.py makemigrations
+#python manage.py migrate
 
 class stock_basic(models.Model):
         '''
@@ -52,6 +54,7 @@ class stock_daily(models.Model):
         volume,成交量， 
         turnoverratio,换手率
         changepercent,涨跌幅
+        updatetime,更新时间
         '''
         date = models.CharField(max_length=20,default="")
         code = models.CharField(max_length=100,default="")
@@ -62,8 +65,23 @@ class stock_daily(models.Model):
         high = models.FloatField(default=None)
         volume = models.FloatField(default=None)
         changepercent = models.FloatField(default=None)
-        
+        updatetime = models.CharField(max_length=100,default="")
         class Meta:
                 unique_together = ["date", "code"]
                 index_together = ["date", "code"]
- 
+                ordering = ['-id']
+
+class stock_ban(models.Model):
+        '''
+        code:
+        name:
+        date:
+        count(万手)
+        ratio:解禁后所占比例
+        '''
+        code = models.CharField(max_length=100,default="")
+        name = models.CharField(max_length=20,default="")
+        date = models.CharField(max_length=20,default="")
+        month = models.CharField(max_length=20,default="")
+        count = models.FloatField(default=None)
+        ratio = models.FloatField(default=None)

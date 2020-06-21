@@ -39,18 +39,24 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django_crontab'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+CRONJOBS=(
+    ('30 14 * * *', 'polls.cron.daily'),
+    ('30 16 * * *', 'polls.cron.daily'),
+    ('35 14 * * *','polls.cron.VolumnFang')
+)
 ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
@@ -112,7 +118,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
 
@@ -125,7 +132,14 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+EMAIL_USE_SSL = False
+EMAIL_HOST = "smtp.qq.com"  # 如果是 163 改成 smtp.163.com
+EMAIL_PORT = 25
+EMAIL_HOST_USER ="271252074@qq.com"# 帐号
+EMAIL_HOST_PASSWORD = 'khkpwletszoccaab'  # 密码
+#8574893971613d17
+EMAIL_FROM = EMAIL_HOST_USER
+EMAIL_USE_TLS = False
 # LOGGING = {
 #     'version': 1,
 #     'filters': {
