@@ -15,7 +15,12 @@ def mailcode(name,content):
         fromaddr= readconfig("qq","qq_username") #看配置
         toaddr = readconfig("qq","qq_toaddr") 
         pwd = readconfig("qq","qq_pwd")
+        print(server)
+        print(fromaddr)
+        print(toaddr)
+        print(pwd)
         s = smtplib.SMTP(server)
+        print(2)
         msg = MIMEText(content,'plain','utf-8')
         sub_suffix = datetime.datetime.now().strftime('%Y%m%d')
         msg['Subject'] = "{}{}".format(name,sub_suffix)
@@ -25,7 +30,7 @@ def mailcode(name,content):
         s.sendmail(fromaddr,toaddr,msg.as_string())
         s.quit()
     except Exception as err:
-        raise SendEmailError("send fail")
+        raise SendEmailError("send fail,reason:{}".format(err))
 
 if __name__ == "__main__":
     mailcode("test","test")
