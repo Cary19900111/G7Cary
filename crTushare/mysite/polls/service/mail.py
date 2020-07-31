@@ -15,12 +15,7 @@ def mailcode(name,content):
         fromaddr= readconfig("qq","qq_username") #看配置
         toaddr = readconfig("qq","qq_toaddr") 
         pwd = readconfig("qq","qq_pwd")
-        print(server)
-        print(fromaddr)
-        print(toaddr)
-        print(pwd)
         s = smtplib.SMTP(server)
-        print(2)
         msg = MIMEText(content,'plain','utf-8')
         sub_suffix = datetime.datetime.now().strftime('%Y%m%d')
         msg['Subject'] = "{}{}".format(name,sub_suffix)

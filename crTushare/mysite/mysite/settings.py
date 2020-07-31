@@ -133,13 +133,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 EMAIL_USE_SSL = False
-EMAIL_HOST = "smtp.qq.com"  # 如果是 163 改成 smtp.163.com
-EMAIL_PORT = 25
-EMAIL_HOST_USER ="271252074@qq.com"# 帐号
-EMAIL_HOST_PASSWORD = 'khkpwletszoccaab'  # 密码
 #8574893971613d17
-EMAIL_FROM = EMAIL_HOST_USER
-EMAIL_USE_TLS = False
+# EMAIL_FROM = EMAIL_HOST_USER
+# EMAIL_USE_TLS = False
 # LOGGING = {
 #     'version': 1,
 #     'filters': {

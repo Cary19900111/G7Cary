@@ -14,6 +14,7 @@ urlpatterns = [
     path('volriseonbottom', views.volRiseOnBottom, name='volRiseOnBottom'),
     path('volhalf', views.volumnhalf, name='volumnhalf'),
     path('volRiseAndDownRecentFourDay',views.volRiseAndDownRecentFourDay,name='volRiseAndDownRecentFourDay'),
+    path('shrinkStopFall',views.shrinkStopFall,name='shrinkStopFall'),
     path('github/repo_list',views.get_github_trend,name='get_github_trend'),
     path('toutiao/posts',views.get_toutiao_posts,name='get_toutiao_posts'),
     path('hacker/news',views.get_hacker_news,name='get_hacker_news'),

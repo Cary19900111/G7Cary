@@ -507,6 +507,61 @@ def volRiseAndDownRecentFourDay(request):
     print("end volRiseOnBottom")
     return HttpResponse("volRiseOnBottom Done!")
 
+@ratelimit(key='ip',rate='1/5s',block=True)
+def shrinkStopFall(request):
+    '''获取最近两天数据，第一天绿柱放量，第二天绿柱缩量，第二天最低价>第一天最低价'''
+    print("start shrinkStopFall")
+    stock_changepercent = {}
+    stock_list = []
+    code_list = stock_daily.objects.values("code").distinct()
+    date_today = datetime.datetime.now().strftime('%Y-%m-%d')
+    for code_dic in code_list:
+        code1 = code_dic['code']
+        code1_daily_datas = stock_daily.objects.filter(code=code1).order_by("date").reverse()[:3].values()
+        data_list = list(code1_daily_datas)
+        if(len(data_list) < 3 or data_list[0]['volume'] == 0):
+            continue
+        #beforeyesterday
+        beforeyesterday_vol = code1_daily_datas[2]['volume']
+        #yesterday
+        yesterday_open = code1_daily_datas[1]['open']
+        yesterday_close = code1_daily_datas[1]['close']
+        yesterday_low = code1_daily_datas[1]['low']
+        yesterday_vol = code1_daily_datas[1]['volume']
+        #today
+        today_open = code1_daily_datas[0]['open']
+        today_close = code1_daily_datas[0]['close']
+        today_low = code1_daily_datas[0]['low']
+        today_vol = code1_daily_datas[0]['volume']
+
+        # today_close = code1_daily_datas[2]['close']
+        if(yesterday_vol>beforeyesterday_vol and #昨天交易量>前天
+        yesterday_close<yesterday_open and #昨天收盘价<开盘价
+        today_close<today_open and #今日收盘价<开盘价
+        today_low>yesterday_low):#今日最低价>昨日最低价
+            stock_list.append(code1)
+            stock_changepercent[code1]=code1_daily_datas[0]['changepercent']
+    #找市盈率>0的
+    result_pd = stock_basic.objects.filter(code__in=stock_list).values()
+    result_list = list(result_pd)
+    result = ""
+    for result_data in result_list:
+        result_single = []
+        code = result_data['code']
+        if code in ban_code_list:
+            continue
+        result_single.append(code)
+        result_single.append(result_data['name'])
+        result_single.append(result_data['industry'])
+        result_single.append(result_data['area'])
+        result_single.append(stock_changepercent[code])
+        result +=json.dumps(result_single,ensure_ascii=False)
+        result+="\n"
+    mailcode("basin",result)
+    # return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
+    print("end shrinkStopFall")
+    return HttpResponse("shrinkStopFall")
+
 def realtime(request,code):
     code_list = code.split(',')
     index_change = ts.get_index().loc[0,"change"]

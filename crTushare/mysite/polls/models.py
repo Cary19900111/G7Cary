@@ -69,7 +69,7 @@ class stock_daily(models.Model):
         class Meta:
                 unique_together = ["date", "code"]
                 index_together = ["date", "code"]
-                ordering = ['-id']
+                # ordering = ['-id']
 
 class stock_ban(models.Model):
         '''
