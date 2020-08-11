@@ -55,7 +55,8 @@ MIDDLEWARE = [
 CRONJOBS=(
     ('30 14 * * *', 'polls.cron.daily'),
     ('30 16 * * *', 'polls.cron.daily'),
-    ('35 14 * * *','polls.cron.VolumnFang')
+    ('35 14 * * *','polls.cron.VolumnFang'),
+    ('45 15 * * *','polls.cron.shrinkStopFall')
 )
 ROOT_URLCONF = 'mysite.urls'
 

@@ -376,7 +376,7 @@ def volumerisered(request):
         result_single.append(result_data['area'])
         result +=json.dumps(result_single,ensure_ascii=False)
         result+="\n"
-    mailcode("volumerisered",result)
+    mailcode("放小量上涨",result)
     # return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
     print("end volumerisered")
     return HttpResponse("volumerisered Done!")
@@ -528,17 +528,20 @@ def shrinkStopFall(request):
         yesterday_close = code1_daily_datas[1]['close']
         yesterday_low = code1_daily_datas[1]['low']
         yesterday_vol = code1_daily_datas[1]['volume']
+        yesterday_hign = code1_daily_datas[1]['high']
         #today
         today_open = code1_daily_datas[0]['open']
         today_close = code1_daily_datas[0]['close']
         today_low = code1_daily_datas[0]['low']
         today_vol = code1_daily_datas[0]['volume']
+        today_hign = code1_daily_datas[0]['high']
 
         # today_close = code1_daily_datas[2]['close']
         if(yesterday_vol>beforeyesterday_vol and #昨天交易量>前天
         yesterday_close<yesterday_open and #昨天收盘价<开盘价
         today_close<today_open and #今日收盘价<开盘价
-        today_low>yesterday_low):#今日最低价>昨日最低价
+        today_low>yesterday_low and
+        today_hign<yesterday_hign):#今日最低价>昨日最低价
             stock_list.append(code1)
             stock_changepercent[code1]=code1_daily_datas[0]['changepercent']
     #找市盈率>0的
@@ -548,8 +551,8 @@ def shrinkStopFall(request):
     for result_data in result_list:
         result_single = []
         code = result_data['code']
-        if code in ban_code_list:
-            continue
+        # if code in ban_code_list:
+        #     continue
         result_single.append(code)
         result_single.append(result_data['name'])
         result_single.append(result_data['industry'])
@@ -557,7 +560,8 @@ def shrinkStopFall(request):
         result_single.append(stock_changepercent[code])
         result +=json.dumps(result_single,ensure_ascii=False)
         result+="\n"
-    mailcode("basin",result)
+    print(result)
+    mailcode("稳住跌势",result)
     # return HttpResponse(json.dumps(result,ensure_ascii=False),content_type="application/json,charset=utf-8")
     print("end shrinkStopFall")
     return HttpResponse("shrinkStopFall")
